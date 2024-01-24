@@ -1,0 +1,54 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class TaşKağıtMakasOyunu {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
+
+        int kullaniciSkor = 0;
+        int bilgisayarSkor = 0;
+        int kazananSkor = 3;
+
+        while (kullaniciSkor < kazananSkor && bilgisayarSkor < kazananSkor) {
+            System.out.println("Taş (0), Kağıt (1), Makas (2) - Bir seçenek belirtin: ");
+            int kullaniciSecimi = scanner.nextInt();
+
+            if (kullaniciSecimi < 0 || kullaniciSecimi > 2) {
+                System.out.println("Geçersiz bir seçenek girdiniz. Lütfen 0, 1 veya 2 seçeneklerinden birini girin.");
+                continue;
+            }
+
+            int bilgisayarSecimi = random.nextInt(3);
+
+            System.out.println("Bilgisayarın seçimi: " + bilgisayarSecimi);
+
+            kazananiBelirle(kullaniciSecimi, bilgisayarSecimi, kullaniciSkor, bilgisayarSkor);
+        }
+
+        if (kullaniciSkor == kazananSkor) {
+            System.out.println("Tebrikler! Oyunu kazandınız!");
+        } else {
+            System.out.println("Üzgünüm, bilgisayar oyunu kazandı. Başka seferde tekrar deneyin!");
+        }
+    }
+
+    private static void kazananiBelirle(int kullaniciSecimi, int bilgisayarSecimi, int kullaniciSkor, int bilgisayarSkor) {
+        if ((kullaniciSecimi == 0 && bilgisayarSecimi == 2) ||
+            (kullaniciSecimi == 1 && bilgisayarSecimi == 0) ||
+            (kullaniciSecimi == 2 && bilgisayarSecimi == 1)) {
+            System.out.println("Tebrikler, bu turu kazandınız!");
+            kullaniciSkor++;
+        } else if (kullaniciSecimi == bilgisayarSecimi) {
+            System.out.println("Berabere, kimse puan kazanamadı.");
+        } else {
+            System.out.println("Üzgünüm, bilgisayar bu turu kazandı.");
+            bilgisayarSkor++;
+        }
+
+        System.out.println("Skor: Kullanıcı " + kullaniciSkor + " - Bilgisayar " + bilgisayarSkor);
+    }
+}
+
+
+Bu program, geçerli bir seçim yapılıncaya kadar kullanıcıdan giriş bekler ve ardından bilgisayarın rastgele seçimini gösterir. Her tur sonunda skoru günceller ve kazanan 3 kez kazanana kadar oyunu devam ettirir.
